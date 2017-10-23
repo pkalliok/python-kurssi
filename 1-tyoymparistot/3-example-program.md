@@ -73,3 +73,13 @@ OK
 
 ```
 
+Viedään vielä talteen:
+
+```
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git add test_wordcount.py wordcount.py 
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git commit -m "Programs"
+[master f13d816] Programs
+ 2 files changed, 16 insertions(+)
+ create mode 100644 test_wordcount.py
+ create mode 100644 wordcount.py
+```

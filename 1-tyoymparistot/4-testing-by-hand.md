@@ -82,3 +82,9 @@ reloadiin asti:
 {'kun': 1, 'voi': 4, 'kallista': 1, 'olla': 1}
 ```
 
+Muutokset talteen:
+
+```
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git commit -am "Fixes"
+```
+

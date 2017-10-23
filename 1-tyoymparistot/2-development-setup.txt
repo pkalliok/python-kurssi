@@ -6,9 +6,16 @@ Collecting six>=1.1 (from nose2)
 Installing collected packages: six, nose2, nosy
 Successfully installed nose2-0.6.5 nosy-1.2 six-1.11.0
 
+(myenv) [atehwa@undantag ~/proj/esim-python]$ pip freeze > requirements.txt 
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git add requirements.txt 
 (myenv) [atehwa@undantag ~/proj/esim-python]$ cat > setup.cfg
 [nosy]
 base_path = ./
 glob_patterns = *.py
-test_runner = python runtests.py
+test_runner = nose2
+(myenv) [atehwa@undantag ~/proj/esim-python]$ cat > .gitignore
+.coverage
+myenv
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git add .gitignore setup.cfg
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git commit -m "Testing setup"
 

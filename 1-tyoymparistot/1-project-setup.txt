@@ -10,7 +10,13 @@ If you want to install random packages from PyPI:
 Already using interpreter /usr/bin/python3
 Using base prefix '/usr'
 New python executable in /home/atehwa/proj/esim-python/myenv/bin/python3
+Also creating executable in /home/atehwa/proj/esim-python/myenv/bin/python
 Installing setuptools, pkg_resources, pip, wheel...done.
 [atehwa@undantag ~/proj/esim-python]$ . myenv/bin/activate
-(myenv) [atehwa@undantag ~/proj/esim-python]$ 
+(myenv) [atehwa@undantag ~/proj/esim-python]$ pip freeze > requirements.txt
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git add requirements.txt 
+(myenv) [atehwa@undantag ~/proj/esim-python]$ git commit -m "initial requirements"
+[master (root-commit) cc897f8] initial requirements
+ 1 file changed, 1 insertion(+)
+ create mode 100644 requirements.txt
 

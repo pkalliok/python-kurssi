@@ -15,15 +15,17 @@ Type "help", "copyright", "credits" or "license" for more information.
 Hmm bugi, lisätään testejä:
 
 ```
-[atehwa@undantag ~]$ cd proj/esim-python/
-[atehwa@undantag ~/proj/esim-python]$ . myenv/bin/activate
-(myenv) [atehwa@undantag ~/proj/esim-python]$ python3
-Python 3.5.2 (default, Sep 14 2017, 22:51:06) 
-[GCC 5.4.0 20160609] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> import imp, wordcount
->>> wordcount.wordcount('voi voi kun voi voi olla kallista')
-{'kun': 1, 'voi': 2, 'kallista': 1, 'olla': 1}
+(myenv) [atehwa@undantag ~/proj/esim-python]$ vi test_wordcount.py 
+(myenv) [atehwa@undantag ~/proj/esim-python]$ cat test_wordcount.py 
+
+from wordcount import wordcount
+
+def test_wordcount():
+    assert wordcount("hei hei vaan") == dict(hei=2, vaan=1)
+    assert wordcount("voi voi kun voi voi olla kallista") == \
+            dict(voi=4, kun=1, olla=1, kallista=1)
+    assert wordcount("") == {}
+
 ```
 
 Testien suorittaja näyttää:

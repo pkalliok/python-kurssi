@@ -16,6 +16,8 @@ test_runner = nose2
 (myenv) [atehwa@undantag ~/proj/esim-python]$ cat > .gitignore
 .coverage
 myenv
+*.pyc
+*.pyo
 (myenv) [atehwa@undantag ~/proj/esim-python]$ git add .gitignore setup.cfg
 (myenv) [atehwa@undantag ~/proj/esim-python]$ git commit -m "Testing setup"
 

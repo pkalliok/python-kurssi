@@ -1,0 +1,14 @@
+(myenv) [atehwa@undantag ~/proj/esim-python]$ pip install nose2 nosy
+Collecting nose2
+Collecting nosy
+Collecting six>=1.1 (from nose2)
+  Using cached six-1.11.0-py2.py3-none-any.whl
+Installing collected packages: six, nose2, nosy
+Successfully installed nose2-0.6.5 nosy-1.2 six-1.11.0
+
+(myenv) [atehwa@undantag ~/proj/esim-python]$ cat > setup.cfg
+[nosy]
+base_path = ./
+glob_patterns = *.py
+test_runner = python runtests.py
+

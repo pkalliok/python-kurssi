@@ -1,0 +1,16 @@
+[atehwa@undantag ~]$ cd proj/
+[atehwa@undantag ~/proj]$ mkdir esim-python
+[atehwa@undantag ~/proj]$ cd esim-python/
+[atehwa@undantag ~/proj/esim-python]$ git init
+Initialized empty Git repository in /home/atehwa/proj/esim-python/.git/
+
+If you want to install random packages from PyPI:
+
+[atehwa@undantag ~/proj/esim-python]$ virtualenv -p python3 myenv
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/atehwa/proj/esim-python/myenv/bin/python3
+Installing setuptools, pkg_resources, pip, wheel...done.
+[atehwa@undantag ~/proj/esim-python]$ . myenv/bin/activate
+(myenv) [atehwa@undantag ~/proj/esim-python]$ 
+

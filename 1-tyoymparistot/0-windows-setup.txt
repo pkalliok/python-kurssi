@@ -1,0 +1,27 @@
+Avaa PowerShell adminina.
+
+PS C:\Windows\system32> Set-ExecutionPolicy remotesigned -force -Scope CurrentUser
+PS C:\Windows\system32> iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+PS C:\Windows\system32> cinst.exe python3 -y
+PS C:\Windows\system32> cinst.exe git -y
+
+Avaa git bash.
+
+$ pip install virtualenv
+
+----
+
+Vaihtoehtoisesti, jos ei ole Windows 10:a käytettävissä:
+
+Lataa git: https://git-scm.com/download/win
+
+Käynnistä asennin.
+
+Lataa Python: https://www.python.org/downloads/
+
+Käynnistä asennin.
+
+Avaa git bash.
+
+$ pip install virtualenv
+

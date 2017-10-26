@@ -1,2 +1,2 @@
-$ brew install python3 git
+$ sudo brew install python3 git
 $ pip3 install virtualenv

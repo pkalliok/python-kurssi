@@ -66,3 +66,32 @@ Hilloo!
 5
 ```
 
+Syy, miksi python löytää `kokeilu.py`-tiedoston, on se että työhakemisto
+(eli se missä Python käynnistettiin) on myös sys.path:ssa:
+
+```
+(myenv) [atehwa@undantag ~/proj/esim-python]$ python3
+Python 3.5.2 (default, Sep 14 2017, 22:51:06) 
+[GCC 5.4.0 20160609] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sys
+>>> sys.path
+['', '/home/atehwa/proj/esim-python/myenv/lib/python35.zip',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5/plat-x86_64-linux-gnu',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5/lib-dynload',
+'/usr/lib/python3.5', '/usr/lib/python3.5/plat-x86_64-linux-gnu',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5/site-packages']
+>>> del sys.path[0]
+>>> sys.path
+['/home/atehwa/proj/esim-python/myenv/lib/python35.zip',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5/plat-x86_64-linux-gnu',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5/lib-dynload',
+'/usr/lib/python3.5', '/usr/lib/python3.5/plat-x86_64-linux-gnu',
+'/home/atehwa/proj/esim-python/myenv/lib/python3.5/site-packages']
+>>> import kokeilu
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: No module named 'kokeilu'
+```

@@ -1,4 +1,4 @@
-[atehwa@undantag ~]$ sudo apt install python3 python3-pip python3-virtualenv git
+[atehwa@undantag ~]$ sudo apt install python3 python3-pip virtualenv git
 
 Tätä ei oo pakko, mutta nää on vähän hassua asentaa joka projektille erikseen:
 

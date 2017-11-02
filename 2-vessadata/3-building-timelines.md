@@ -13,7 +13,7 @@ def load_csv(filename):
     return csv.reader(open(filename))
 
 def parsed_vessadata(csv_data):
-    return ((parse(time), int(place), evtype, bool(value))
+    return ((parse(time), int(place), evtype, bool(float(value)))
             for place, value, time, evtype, _, _ in islice(csv_data, 1, None))
 
 def place_and_type(event): return event[1:3]
@@ -106,11 +106,11 @@ In [41]: s1_events = list(sensor1[1])
 
 In [42]: s1_events[:5]
 Out[42]: 
-[(datetime.datetime(2016, 6, 14, 5, 47, 11), 2, 'closed', True),
+[(datetime.datetime(2016, 6, 14, 5, 47, 11), 2, 'closed', False),
  (datetime.datetime(2016, 6, 14, 5, 47, 14), 2, 'closed', True),
- (datetime.datetime(2016, 6, 14, 5, 51, 54), 2, 'closed', True),
+ (datetime.datetime(2016, 6, 14, 5, 51, 54), 2, 'closed', False),
  (datetime.datetime(2016, 6, 14, 5, 51, 57), 2, 'closed', True),
- (datetime.datetime(2016, 6, 14, 7, 22, 42), 2, 'closed', True)]
+ (datetime.datetime(2016, 6, 14, 7, 22, 42), 2, 'closed', False)]
 
 In [43]: list(islice(vessadata.states_from_events(s1_events),5))
 Out[43]: 
@@ -118,7 +118,7 @@ Out[43]:
   datetime.datetime(2016, 6, 4, 20, 35, 56),
   2,
   'closed',
-  True),
+  False),
  (datetime.datetime(2016, 6, 4, 20, 35, 56),
   datetime.datetime(2016, 6, 4, 20, 35, 59),
   2,

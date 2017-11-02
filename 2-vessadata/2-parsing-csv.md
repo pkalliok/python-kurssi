@@ -86,7 +86,7 @@ def load_csv(filename):
     return csv.reader(open(filename))
 
 def parsed_vessadata(csv_data):
-    return ((parse(time), int(place), evtype, bool(value))
+    return ((parse(time), int(place), evtype, bool(float(value)))
             for place, value, time, evtype, _, _ in islice(csv_data, 1, None))
 
 ```

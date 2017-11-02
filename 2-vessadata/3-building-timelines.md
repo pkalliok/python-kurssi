@@ -155,4 +155,16 @@ Out[45]:
 
 ```
 
+Työskentelyn tulokset talteen:
+
+```
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ pip freeze > requirements.txt
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ git add Makefile vessadata.py requirements.txt 
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ git commit -m "Vessadata handling"
+[master (root-commit) 97b26e7] Vessadata handling
+ 3 files changed, 55 insertions(+)
+ create mode 100644 Makefile
+ create mode 100644 requirements.txt
+ create mode 100644 vessadata.py
+```
 

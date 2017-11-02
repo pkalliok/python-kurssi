@@ -22,8 +22,9 @@ place_id,value,time,type,id,device_id
 2,0.0,2016-06-14T05:36:49,movement,47890,1210115
 2,1.0,2016-06-14T05:47:18,movement,47891,1210115
 2,1.0,2016-06-14T05:47:23,movement,47892,1210115
-(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ python
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ ipython
 Python 3.5.2 (default, Sep 14 2017, 22:51:06) 
-[GCC 5.4.0 20160609] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> 
+Type 'copyright', 'credits' or 'license' for more information
+IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]:

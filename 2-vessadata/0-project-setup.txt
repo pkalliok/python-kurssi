@@ -8,12 +8,7 @@ New python executable in /home/atehwa/proj/esim-vessadata/myenv/bin/python3
 Also creating executable in /home/atehwa/proj/esim-vessadata/myenv/bin/python
 Installing setuptools, pip, wheel...done.
 [atehwa@undantag ~/proj/esim-vessadata]$ . myenv/bin/activate
-(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ pip install nosy nose2
-Collecting nosy
-Collecting nose2
-Collecting six>=1.1 (from nose2)
-  Using cached six-1.11.0-py2.py3-none-any.whl
-Installing collected packages: nosy, six, nose2
-Successfully installed nose2-0.6.5 nosy-1.2 six-1.11.0
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ pip install nosy nose2 ipython
+[... paljon tulostetta ...]
 (myenv) [atehwa@undantag ~/proj/esim-vessadata]$ git init
 Initialized empty Git repository in /home/atehwa/proj/esim-vessadata/.git/

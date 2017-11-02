@@ -55,48 +55,38 @@ In [9]: vessadata.load_csv('toilets.csv').__next__()
 Out[9]: ['place_id', 'value', 'time', 'type', 'id', 'device_id']
 ```
 
+Asennetaan dateutil, jolla voi kätevästi jäsentää päivämääriä:
+
+```bash
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ pip install python-dateutil
+Collecting python-dateutil
+  Using cached python_dateutil-2.6.1-py2.py3-none-any.whl
+Requirement already satisfied: six>=1.5 in ./myenv/lib/python3.5/site-packages (from python-dateutil)
+Installing collected packages: python-dateutil
+Successfully installed python-dateutil-2.6.1
+```
+
+Kokeillaan:
+
+```
+In [4]: from dateutil.parser import parse
+
+In [5]: parse('2017-02-15T13:40')
+Out[5]: datetime.datetime(2017, 2, 15, 13, 40)
+```
+
 Lisää määrittelyitä `vessadata.py`-tiedostoon:
 
 ```python
 import csv
-from datetime import datetime
-
-def load_csv(filename):
-    return csv.reader(open(filename))
-
-def from_iso_timestamp(datetimestring):
-    return datetime.strptime(datetimestring, '%Y-%m-%dT%H:%M:%S')
-
-```
-
-Ladataan uudelleen ja kokeillaan:
-
-```
-In [31]: from imp import reload
-
-In [32]: reload(vessadata)
-Out[32]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
-
-In [33]: vessadata.from_iso_timestamp('2017-01-22T19:00:00')
-Out[33]: datetime.datetime(2017, 1, 22, 19, 0)
-```
-
-Jälleen `vessadata.py`:
-
-```python
-
-import csv
-from datetime import datetime
+from dateutil.parser import parse
 from itertools import islice
 
 def load_csv(filename):
     return csv.reader(open(filename))
 
-def from_iso_timestamp(datetimestring):
-    return datetime.strptime(datetimestring, '%Y-%m-%dT%H:%M:%S')
-
 def parsed_vessadata(csv_data):
-    return ((from_iso_timestamp(time), int(place), evtype, bool(value))
+    return ((parse(time), int(place), evtype, bool(value))
             for place, value, time, evtype, _, _ in islice(csv_data, 1, None))
 
 ```
@@ -104,11 +94,12 @@ def parsed_vessadata(csv_data):
 Kokeillaan:
 
 ```
-In [47]: reload(vessadata)
-Out[47]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
+In [8]: from imp import reload
 
-In [48]: vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv')).__next__(
-    ...: )
-Out[48]: (datetime.datetime(2016, 6, 14, 5, 36, 49), 2, 'movement', True)
+In [9]: reload(vessadata)
+Out[9]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
+
+In [10]: next(vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv')))
+Out[10]: (datetime.datetime(2016, 6, 14, 5, 36, 49), 2, 'movement', True)
 ```
 

@@ -29,12 +29,10 @@ Kokeillaan:
 In [19]: reload(vessadata)
 Out[19]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
 
-In [20]: vessadata.place_and_type(next(vessadata.parsed_vessadata(vessadata.load
-    ...: _csv('toilets.csv'))))
+In [20]: vessadata.place_and_type(next(vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv'))))
 Out[20]: (2, 'movement')
 
-In [21]: dict(vessadata.by_place_and_type(vessadata.parsed_vessadata(vessadata.l
-    ...: oad_csv('toilets.csv'))))
+In [21]: dict(vessadata.by_place_and_type(vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv'))))
 Out[21]: 
 {(2, 'closed'): <itertools._grouper at 0x7ff5fde0f438>,
  (2, 'movement'): <itertools._grouper at 0x7ff5fde0f208>,
@@ -99,8 +97,7 @@ Ja testataan:
 In [39]: reload(vessadata)
 Out[39]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
 
-In [40]: sensor1 = next(vessadata.by_place_and_type(vessadata.parsed_vessadata(v
-    ...: essadata.load_csv('toilets.csv'))))
+In [40]: sensor1 = next(vessadata.by_place_and_type(vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv'))))
 
 In [41]: s1_events = list(sensor1[1])
 
@@ -140,8 +137,7 @@ Ja kokeillaan:
 In [44]: reload(vessadata)
 Out[44]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
 
-In [45]: vessadata.sensor_states(vessadata.parsed_vessadata(vessadata.load_csv('
-    ...: toilets.csv')))
+In [45]: vessadata.sensor_states(vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv')))
 Out[45]: 
 {(2, 'closed'): <generator object states_from_events.<locals>.<genexpr> at 0x7ff5feb18728>,
  (2, 'movement'): <generator object states_from_events.<locals>.<genexpr> at 0x7ff5feb43410>,

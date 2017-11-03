@@ -133,7 +133,7 @@ def sensor_states(events):
 
 Ja kokeillaan:
 
-```python
+```
 In [44]: reload(vessadata)
 Out[44]: <module 'vessadata' from '/home/atehwa/proj/esim-vessadata/vessadata.py'>
 

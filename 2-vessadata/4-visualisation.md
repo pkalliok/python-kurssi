@@ -1,4 +1,24 @@
-Asennetaan matplotlib:
+Ensin laitetaan tieto helposti leikittävään muotoon (listoiksi):
+
+```
+In [31]: d = list(vessadata.parsed_vessadata(vessadata.load_csv('toilets.csv')))
+
+In [32]: sensors = {k: list(val) for k, val in vessadata.by_place_and_type(d)}
+
+In [33]: vessadata.map_values(len, sensors)
+Out[33]: 
+{(2, 'closed'): 4904,
+ (2, 'movement'): 28222,
+ (3, 'closed'): 1510,
+ (3, 'movement'): 4423,
+ (4, 'closed'): 2564,
+ (4, 'movement'): 3826,
+ (5, 'closed'): 3326,
+ (5, 'movement'): 9672,
+ (5, 'occupied'): 1}
+```
+
+Sitten töihin.  Asennetaan matplotlib:
 
 ```
 (myenv) [atehwa@undantag ~/proj/esim-vessadata]$ pip install matplotlib
@@ -47,7 +67,6 @@ In [126]: import ts_plot
 
 In [127]: fig, ax = pyplot.subplots()
 
-In [128]: ts_plot.add_states_to_plot(ax, 1, vessadata.states_from_events(s1_events))
-
+In [128]: ts_plot.add_states_to_plot(ax, 1, vessadata.states_from_events(sensors[2,'closed']))
 ```
 

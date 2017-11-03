@@ -70,3 +70,10 @@ In [127]: fig, ax = pyplot.subplots()
 In [128]: ts_plot.add_states_to_plot(ax, 1, vessadata.states_from_events(sensors[2,'closed']))
 ```
 
+Koodi talteen:
+
+```
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ git add ts_plot.py
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ git commit -m "Visualisation"
+```
+

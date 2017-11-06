@@ -10,3 +10,7 @@ def test_swestops():
     assert 'min' not in swe_stops
     assert 'och' in swe_stops
 
+def test_engstops():
+    assert 'me' not in en_stops
+    assert 'the' in en_stops
+

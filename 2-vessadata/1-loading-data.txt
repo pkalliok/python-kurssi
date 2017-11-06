@@ -1,0 +1,30 @@
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ vi Makefile 
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ cat Makefile 
+
+toilets.csv:
+	wget http://koneidenkapinaadele.github.io/vvk/toilets.csv
+
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ make
+wget http://koneidenkapinaadele.github.io/vvk/toilets.csv
+--2017-11-02 09:42:24--  http://koneidenkapinaadele.github.io/vvk/toilets.csv
+Resolving koneidenkapinaadele.github.io (koneidenkapinaadele.github.io)... 151.101.85.147, 2a04:4e42:14::403
+Connecting to koneidenkapinaadele.github.io (koneidenkapinaadele.github.io)|151.101.85.147|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2894633 (2,8M) [text/csv]
+Saving to: ‘toilets.csv’
+
+toilets.csv         100%[===================>]   2,76M  2,62MB/s    in 1,1s    
+
+2017-11-02 09:42:25 (2,62 MB/s) - ‘toilets.csv’ saved [2894633/2894633]
+
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ head -4 toilets.csv 
+place_id,value,time,type,id,device_id
+2,0.0,2016-06-14T05:36:49,movement,47890,1210115
+2,1.0,2016-06-14T05:47:18,movement,47891,1210115
+2,1.0,2016-06-14T05:47:23,movement,47892,1210115
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ ipython
+Python 3.5.2 (default, Sep 14 2017, 22:51:06) 
+Type 'copyright', 'credits' or 'license' for more information
+IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]:

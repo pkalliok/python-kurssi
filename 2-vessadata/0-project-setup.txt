@@ -1,0 +1,14 @@
+[atehwa@undantag ~]$ cd proj/
+[atehwa@undantag ~/proj]$ mkdir esim-vessadata
+[atehwa@undantag ~/proj]$ cd esim-vessadata/
+[atehwa@undantag ~/proj/esim-vessadata]$ virtualenv -p python3 myenv
+Already using interpreter /usr/bin/python3
+Using base prefix '/usr'
+New python executable in /home/atehwa/proj/esim-vessadata/myenv/bin/python3
+Also creating executable in /home/atehwa/proj/esim-vessadata/myenv/bin/python
+Installing setuptools, pip, wheel...done.
+[atehwa@undantag ~/proj/esim-vessadata]$ . myenv/bin/activate
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ pip install nosy nose2 ipython
+[... paljon tulostetta ...]
+(myenv) [atehwa@undantag ~/proj/esim-vessadata]$ git init
+Initialized empty Git repository in /home/atehwa/proj/esim-vessadata/.git/

@@ -6,3 +6,7 @@ def test_finstops():
     assert 'emme' not in fin_stops
     assert 'vai' in fin_stops
 
+def test_swestops():
+    assert 'min' not in swe_stops
+    assert 'och' in swe_stops
+

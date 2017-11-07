@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import unittest
-from reporting import ibdailysummary
+import ibdailysummary
 import utils
 import os
 import pandas as pd

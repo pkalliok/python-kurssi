@@ -5,8 +5,8 @@ proseduuri:
  1. tehdään testit jos ne puuttuu
  1. fiksataan epäidiomaattiset kohdat
  1. poistetaan turhat sisennykset
- 1. etsitään toisto ja poistetaan
- 1. otetaan looppien sisässä olevat laskennat ja muutetaan ne funktioiksi
+ 1. etsitään koodissa oleva toisto ja poistetaan (DRY)
+ 1. otetaan looppien sisässä olevat monimutkaisuudet ja eristetään ne funktioiksi
  1. pätkitään pitkät funktiot apumäärittelyiksi
  1. muutetaan kaikki imperatiiviset silmukat funktionaalisiksi
  1. poistetaan loput sivuvaikutukselliset asiat

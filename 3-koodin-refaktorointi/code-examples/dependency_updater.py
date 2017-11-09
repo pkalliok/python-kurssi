@@ -21,20 +21,19 @@
 #
 #############################################################################################
 
-import sys
 import os
 import xml.etree.ElementTree as ET
 
 #Main function for this script
-def main():
-    if (len(sys.argv) < 5):
+def main(args):
+    if (len(args) < 5):
         print('Not enough parameters provided. Exiting...')
         return
 
-    projectname = sys.argv[1]
+    projectname = args[1]
     print('Project name: ' + projectname)
 
-    projectpath = sys.argv[2]
+    projectpath = args[2]
     print('Path to project file: ' + projectpath)
     if (len(projectpath) == 0):
         print('No path to project file provided. Exiting...')
@@ -45,7 +44,7 @@ def main():
         print('Oops, invalid project path. Exiting...')
         return
 
-    debugpath = sys.argv[3]
+    debugpath = args[3]
     print('Path to debug .obj files: ' + debugpath)
     try:
         os.chdir(debugpath)
@@ -53,7 +52,7 @@ def main():
     except (WindowsError, OSError):
         print('Oops, no debug folder found')
 
-    releasepath = sys.argv[4]
+    releasepath = args[4]
     print('Path to release .obj files: ' + releasepath)
     try:
         os.chdir(releasepath)
@@ -118,4 +117,5 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
 #
 ###########################################
 if (__name__ == '__main__'):
-    main()
+    import sys
+    main(sys.argv)

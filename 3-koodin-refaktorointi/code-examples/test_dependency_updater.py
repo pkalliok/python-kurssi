@@ -40,3 +40,13 @@ def test_changed_obj_update():
         assert 'quux.obj' in dep_lines[1]
         assert 'foo.obj' not in dep_lines[1]
 
+def test_empty_obj_update():
+    with data_fixture('test3') as d:
+        dependency_updater.updateProjectFile('nonpnpapp',
+                abspath(d), abspath(join(d,'no_objfiles')), 'Debug')
+        for num, line in enumerate(get_dep_lines(d)):
+            if not num%2: continue
+            assert 'foo.obj' not in line
+            assert 'bar.obj' not in line
+            assert 'quux.obj' not in line
+

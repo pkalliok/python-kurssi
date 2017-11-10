@@ -21,8 +21,8 @@
 #
 #############################################################################################
 
-from os.path import isdir
-from os import listdir, chdir
+from os.path import isdir, join
+from os import listdir
 import xml.etree.ElementTree as ET
 
 #Main function for this script
@@ -56,21 +56,19 @@ def main(args):
 # Updates the project file with .obj file names found from the given folder
 # Expects projectname string, path to project file string, path to .obj files string and [Debug|Release] string
 def updateProjectFile(projectname, projectpath, objpath, runMode):
-    chdir(objpath)
     objfiles = list()
-    contents = listdir()
+    contents = listdir(objpath)
     for file in contents:
         if ('.obj' in file):
             if (file != 'main.obj'):
                 objfiles.append(file)
 
-    chdir(projectpath)
-    projectdirectory = listdir()
+    projectdirectory = listdir(projectpath)
     for file in projectdirectory:
         fileUpdated = False
         if (projectname.lower() + '.vcxproj' == file.lower()):
             ET.register_namespace('', "http://schemas.microsoft.com/developer/msbuild/2003")
-            tree = ET.parse(file)
+            tree = ET.parse(join(projectpath, file))
             root = tree.getroot()
             for itemDefinitionGroup in root.iter('{http://schemas.microsoft.com/developer/msbuild/2003}ItemDefinitionGroup'):
                 if (runMode in itemDefinitionGroup.attrib.get('Condition')):
@@ -96,7 +94,7 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
 
             #Update file
             if (fileUpdated):
-                tree.write(file, encoding="utf-8", xml_declaration=True)
+                tree.write(join(projectpath, file), encoding="utf-8", xml_declaration=True)
                 print('Updated ' + runMode + ' dependencies in ' + file)
             else:
                 print(runMode + ' dependencies in ' + file + ' were already up-to-date')

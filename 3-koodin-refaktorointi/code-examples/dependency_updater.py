@@ -23,34 +23,39 @@
 
 from os.path import isdir, join
 from os import listdir
+import sys
 import xml.etree.ElementTree as ET
 
-#Main function for this script
+logging = True
+
+def die(complaint):
+    print(complaint, file=sys.stderr)
+    sys.exit(1)
+
+def log(message):
+    if logging: print(message)
+
 def main(args):
-    if (len(args) < 5):
-        print('Not enough parameters provided. Exiting...')
-        return
+    if (len(args) < 5): die('Not enough parameters provided. Exiting...')
 
     projectname = args[1]
-    print('Project name: ' + projectname)
+    log('Project name: ' + projectname)
 
     projectpath = args[2]
-    print('Path to project file: ' + projectpath)
-    if not isdir(projectpath):
-        print('Oops, invalid project path. Exiting...')
-        return
+    log('Path to project file: ' + projectpath)
+    if not isdir(projectpath): die('Oops, invalid project path. Exiting...')
 
     debugpath = args[3]
-    print('Path to debug .obj files: ' + debugpath)
+    log('Path to debug .obj files: ' + debugpath)
     if isdir(debugpath):
         updateProjectFile(projectname, projectpath, debugpath, 'Debug')
-    else: print('Oops, no debug folder found')
+    else: die('Oops, no debug folder found')
 
     releasepath = args[4]
-    print('Path to release .obj files: ' + releasepath)
+    log('Path to release .obj files: ' + releasepath)
     if isdir(releasepath):
         updateProjectFile(projectname, projectpath, releasepath, 'Release')
-    else: print('Oops, no release folder found')
+    else: die('Oops, no release folder found')
 
 
 # Updates the project file with .obj file names found from the given folder
@@ -64,9 +69,9 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
     updated, newtree = updated_project(ET.parse(projectfile), objfiles, runMode)
     if updated:
         newtree.write(projectfile, encoding="utf-8", xml_declaration=True)
-        print('Updated ' + runMode + ' dependencies in ' + projectname)
+        log('Updated ' + runMode + ' dependencies in ' + projectname)
     else:
-        print(runMode + ' dependencies in ' + projectname + ' were already up-to-date')
+        log(runMode + ' dependencies in ' + projectname + ' were already up-to-date')
 
 def updated_project(tree, objfiles, runMode):
     root = tree.getroot()

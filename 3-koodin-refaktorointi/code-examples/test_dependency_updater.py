@@ -16,10 +16,12 @@ def create_testdata(target_path):
 def data_fixture(target_path):
     save_cwd = getcwd()
     test_dir = abspath(target_path)
+    dependency_updater.logging = False
     create_testdata(test_dir)
     yield test_dir
     destroy_testdata(test_dir)
     chdir(save_cwd)
+    dependency_updater.logging = True
 
 def get_dep_lines(target_path):
     return (line for line in open(join(target_path, "nonpnpapp.vcxproj"))

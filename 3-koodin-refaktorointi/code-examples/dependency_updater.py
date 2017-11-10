@@ -56,12 +56,8 @@ def main(args):
 # Updates the project file with .obj file names found from the given folder
 # Expects projectname string, path to project file string, path to .obj files string and [Debug|Release] string
 def updateProjectFile(projectname, projectpath, objpath, runMode):
-    objfiles = list()
-    contents = listdir(objpath)
-    for file in contents:
-        if ('.obj' in file):
-            if (file != 'main.obj'):
-                objfiles.append(file)
+    objfiles = [file for file in listdir(objpath)
+                if file.endswith('.obj') and file != 'main.obj']
 
     projectfile = join(projectpath, projectname.lower() + '.vcxproj')
     ET.register_namespace('', "http://schemas.microsoft.com/developer/msbuild/2003")
@@ -92,9 +88,9 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
     #Update file
     if (fileUpdated):
         tree.write(projectfile, encoding="utf-8", xml_declaration=True)
-        print('Updated ' + runMode + ' dependencies in ' + file)
+        print('Updated ' + runMode + ' dependencies in ' + projectname)
     else:
-        print(runMode + ' dependencies in ' + file + ' were already up-to-date')
+        print(runMode + ' dependencies in ' + projectname + ' were already up-to-date')
 
 ###########################################
 #

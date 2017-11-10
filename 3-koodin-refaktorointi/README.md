@@ -43,3 +43,23 @@ Testien kirjoitusta:
  * https://github.com/pkalliok/python-kurssi/commit/ce3c7dc4f6415cc062c6676b354b9104e36f76a2
  * https://github.com/pkalliok/python-kurssi/commit/4f89bc9d6b55e2268e4721f6df646a898bd3d2a6
 
+Epäidiomaattisuuksien korjausta ja chdir:sta eroon:
+ * https://github.com/pkalliok/python-kurssi/commit/b51cf1ce564ee9fcaf49fe52a866aa1d21193da7
+ * https://github.com/pkalliok/python-kurssi/commit/b87ccc16e6d749a21b7249da570e87c993a7d3c3
+
+Turhien sisennysten poistoa:
+ * https://github.com/pkalliok/python-kurssi/commit/92555768827ccee72317c24c5055b41c1cccaf49
+ * https://github.com/pkalliok/python-kurssi/commit/a5c531f8e4b59b42bf8c71504ed7fb1e31a3d6a1
+
+Jakamista pienempiin funktioihin:
+ * https://github.com/pkalliok/python-kurssi/blob/c3ae44036466aa846538aef959d5c2fdad1d77b1/3-koodin-refaktorointi/code-examples/dependency_updater.py
+ * https://github.com/pkalliok/python-kurssi/commit/02572dc4d0eb61327325bd7e1601bdb0c9acf92c
+ * https://github.com/pkalliok/python-kurssi/commit/0f8310613f11258168c4e2e10d9ae3bf36a0258b
+
+Imperatiivisten looppien muuttamista funktionaalisiksi:
+ * https://github.com/pkalliok/python-kurssi/commit/e6158fcc3f1f5b37f552e1c71fcc845e4112751b
+ * https://github.com/pkalliok/python-kurssi/commit/7ea9e77007154817995056fb3cdcd3784ad24c51
+
+Siistittynä:
+ * https://github.com/pkalliok/python-kurssi/blob/b2684ff9172556f985d71efddc5183002a4d105d/3-koodin-refaktorointi/code-examples/dependency_updater.py
+

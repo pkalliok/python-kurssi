@@ -21,7 +21,8 @@
 #
 #############################################################################################
 
-import os
+from os.path import isdir
+from os import listdir, chdir
 import xml.etree.ElementTree as ET
 
 #Main function for this script
@@ -35,45 +36,36 @@ def main(args):
 
     projectpath = args[2]
     print('Path to project file: ' + projectpath)
-    if (len(projectpath) == 0):
-        print('No path to project file provided. Exiting...')
-        return
-    try:
-        os.chdir(projectpath)
-    except (WindowsError, OSError):
+    if not isdir(projectpath):
         print('Oops, invalid project path. Exiting...')
         return
 
     debugpath = args[3]
     print('Path to debug .obj files: ' + debugpath)
-    try:
-        os.chdir(debugpath)
+    if isdir(debugpath):
         updateProjectFile(projectname, projectpath, debugpath, 'Debug')
-    except (WindowsError, OSError):
-        print('Oops, no debug folder found')
+    else: print('Oops, no debug folder found')
 
     releasepath = args[4]
     print('Path to release .obj files: ' + releasepath)
-    try:
-        os.chdir(releasepath)
+    if isdir(releasepath):
         updateProjectFile(projectname, projectpath, releasepath, 'Release')
-    except (WindowsError, OSError):
-        print('Oops, no release folder found')
+    else: print('Oops, no release folder found')
 
 
 # Updates the project file with .obj file names found from the given folder
 # Expects projectname string, path to project file string, path to .obj files string and [Debug|Release] string
 def updateProjectFile(projectname, projectpath, objpath, runMode):
-    os.chdir(objpath)
+    chdir(objpath)
     objfiles = list()
-    contents = os.listdir()
+    contents = listdir()
     for file in contents:
         if ('.obj' in file):
             if (file != 'main.obj'):
                 objfiles.append(file)
 
-    os.chdir(projectpath)
-    projectdirectory = os.listdir()
+    chdir(projectpath)
+    projectdirectory = listdir()
     for file in projectdirectory:
         fileUpdated = False
         if (projectname.lower() + '.vcxproj' == file.lower()):

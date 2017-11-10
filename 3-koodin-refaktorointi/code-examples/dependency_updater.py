@@ -37,22 +37,16 @@ def log(message):
 
 def main(args):
     if (len(args) < 5): die('Not enough parameters provided. Exiting...')
-
-    projectname = args[1]
+    _, projectname, projectpath, debugpath, releasepath = args
     log('Project name: ' + projectname)
-
-    projectpath = args[2]
     log('Path to project file: ' + projectpath)
-    if not isdir(projectpath): die('Oops, invalid project path. Exiting...')
-
-    debugpath = args[3]
     log('Path to debug .obj files: ' + debugpath)
+    log('Path to release .obj files: ' + releasepath)
+
+    if not isdir(projectpath): die('Oops, invalid project path. Exiting...')
     if isdir(debugpath):
         updateProjectFile(projectname, projectpath, debugpath, 'Debug')
     else: die('Oops, no debug folder found')
-
-    releasepath = args[4]
-    log('Path to release .obj files: ' + releasepath)
     if isdir(releasepath):
         updateProjectFile(projectname, projectpath, releasepath, 'Release')
     else: die('Oops, no release folder found')
@@ -76,7 +70,6 @@ def updated_project(tree, objfiles, runMode):
     fileUpdated = False
     for itemDefinitionGroup in root.iter('{http://schemas.microsoft.com/developer/msbuild/2003}ItemDefinitionGroup'):
         if runMode not in itemDefinitionGroup.attrib.get('Condition'): continue
-        #Find additional dependencies
         for additionalDependencies in itemDefinitionGroup.iter('{http://schemas.microsoft.com/developer/msbuild/2003}AdditionalDependencies'):
             changed, newdeps = updated_deps(additionalDependencies.text, objfiles)
             if changed:
@@ -88,11 +81,10 @@ def is_additional(fname): return splitext(fname)[1] not in ['.lib', '.obj']
 
 def updated_deps(olddeps, objfiles):
     dependencies = olddeps.split(';')
-    newdeps = [f for f in dependencies if f.endswith('.lib')] \
-            + objfiles \
-            + [f for f in dependencies if is_additional(f)]
-    tempstr = ';'.join(newdeps)
-    return (tempstr != olddeps, tempstr)
+    newdeps = ';'.join([f for f in dependencies if f.endswith('.lib')]
+                    + objfiles
+                    + [f for f in dependencies if is_additional(f)])
+    return (newdeps != olddeps, newdeps)
 
 ###########################################
 #

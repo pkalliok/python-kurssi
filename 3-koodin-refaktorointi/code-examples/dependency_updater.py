@@ -51,15 +51,17 @@ def main(args):
         updateProjectFile(projectname, projectpath, releasepath, 'Release')
     else: die('Oops, no release folder found')
 
+ms_schema = "http://schemas.microsoft.com/developer/msbuild/2003"
+
 # Updates the project file with .obj file names found from the given folder
 # Expects projectname string, path to project file string, path to .obj files string and [Debug|Release] string
 def updateProjectFile(projectname, projectpath, objpath, runMode):
     objfiles = [file for file in listdir(objpath)
                 if file.endswith('.obj') and file != 'main.obj']
     projectfile = join(projectpath, projectname.lower() + '.vcxproj')
-    ET.register_namespace('', "http://schemas.microsoft.com/developer/msbuild/2003")
     updated, newtree = updated_project(ET.parse(projectfile), objfiles, runMode)
     if updated:
+        ET.register_namespace('', ms_schema)
         newtree.write(projectfile, encoding="utf-8", xml_declaration=True)
         log('Updated ' + runMode + ' dependencies in ' + projectname)
     else:
@@ -68,13 +70,11 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
 def updated_project(tree, objfiles, runMode):
     root = tree.getroot()
     fileUpdated = False
-    for itemDefinitionGroup in root.iter('{http://schemas.microsoft.com/developer/msbuild/2003}ItemDefinitionGroup'):
-        if runMode not in itemDefinitionGroup.attrib.get('Condition'): continue
-        for additionalDependencies in itemDefinitionGroup.iter('{http://schemas.microsoft.com/developer/msbuild/2003}AdditionalDependencies'):
-            changed, newdeps = updated_deps(additionalDependencies.text, objfiles)
-            if changed:
-                additionalDependencies.text = newdeps
-                fileUpdated = True
+    for group in root.iter('{%s}ItemDefinitionGroup' % ms_schema):
+        if runMode not in group.attrib.get('Condition'): continue
+        for deps in group.iter('{%s}AdditionalDependencies' % ms_schema):
+            changed, deps.text = updated_deps(deps.text, objfiles)
+            fileUpdated |= changed
     return (fileUpdated, tree)
 
 def is_additional(fname): return splitext(fname)[1] not in ['.lib', '.obj']
@@ -86,11 +86,6 @@ def updated_deps(olddeps, objfiles):
                     + [f for f in dependencies if is_additional(f)])
     return (newdeps != olddeps, newdeps)
 
-###########################################
-#
-# Script entry point
-#
-###########################################
 if (__name__ == '__main__'):
     import sys
     main(sys.argv)

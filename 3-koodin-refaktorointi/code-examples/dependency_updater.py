@@ -69,25 +69,25 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
     root = tree.getroot()
     fileUpdated = False
     for itemDefinitionGroup in root.iter('{http://schemas.microsoft.com/developer/msbuild/2003}ItemDefinitionGroup'):
-        if (runMode in itemDefinitionGroup.attrib.get('Condition')):
-            #Find additional dependencies
-            for additionalDependencies in itemDefinitionGroup.iter('{http://schemas.microsoft.com/developer/msbuild/2003}AdditionalDependencies'):
-                #Split dependencies into list
-                dependencies = additionalDependencies.text.split(';')
-                #Separate dependency types
-                libs = [ x for x in dependencies if '.lib' in x ]
-                additional = [ x for x in dependencies if '.lib' not in x and '.obj' not in x ]
-                #Append items back to the list
-                del dependencies[:]
-                dependencies.extend(libs)
-                dependencies.extend(objfiles)
-                dependencies.extend(additional)
-                #Turn list into string again
-                tempstr = ';'.join(dependencies)
-                original = additionalDependencies.text
-                if (original != tempstr):
-                    additionalDependencies.text = tempstr
-                    fileUpdated = True
+        if runMode not in itemDefinitionGroup.attrib.get('Condition'): continue
+        #Find additional dependencies
+        for additionalDependencies in itemDefinitionGroup.iter('{http://schemas.microsoft.com/developer/msbuild/2003}AdditionalDependencies'):
+            #Split dependencies into list
+            dependencies = additionalDependencies.text.split(';')
+            #Separate dependency types
+            libs = [ x for x in dependencies if '.lib' in x ]
+            additional = [ x for x in dependencies if '.lib' not in x and '.obj' not in x ]
+            #Append items back to the list
+            del dependencies[:]
+            dependencies.extend(libs)
+            dependencies.extend(objfiles)
+            dependencies.extend(additional)
+            #Turn list into string again
+            tempstr = ';'.join(dependencies)
+            original = additionalDependencies.text
+            if (original != tempstr):
+                additionalDependencies.text = tempstr
+                fileUpdated = True
 
     #Update file
     if (fileUpdated):

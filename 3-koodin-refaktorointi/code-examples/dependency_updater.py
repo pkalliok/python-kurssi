@@ -21,7 +21,7 @@
 #
 #############################################################################################
 
-from os.path import isdir, join
+from os.path import isdir, join, splitext
 from os import listdir
 import sys
 import xml.etree.ElementTree as ET
@@ -84,19 +84,14 @@ def updated_project(tree, objfiles, runMode):
                 fileUpdated = True
     return (fileUpdated, tree)
 
+def is_additional(fname): return splitext(fname)[1] not in ['.lib', '.obj']
+
 def updated_deps(olddeps, objfiles):
-    #Split dependencies into list
     dependencies = olddeps.split(';')
-    #Separate dependency types
-    libs = [ x for x in dependencies if '.lib' in x ]
-    additional = [ x for x in dependencies if '.lib' not in x and '.obj' not in x ]
-    #Append items back to the list
-    del dependencies[:]
-    dependencies.extend(libs)
-    dependencies.extend(objfiles)
-    dependencies.extend(additional)
-    #Turn list into string again
-    tempstr = ';'.join(dependencies)
+    newdeps = [f for f in dependencies if f.endswith('.lib')] \
+            + objfiles \
+            + [f for f in dependencies if is_additional(f)]
+    tempstr = ';'.join(newdeps)
     return (tempstr != olddeps, tempstr)
 
 ###########################################

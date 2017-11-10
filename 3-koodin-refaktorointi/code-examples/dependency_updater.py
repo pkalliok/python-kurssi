@@ -57,13 +57,11 @@ def main(args):
         updateProjectFile(projectname, projectpath, releasepath, 'Release')
     else: die('Oops, no release folder found')
 
-
 # Updates the project file with .obj file names found from the given folder
 # Expects projectname string, path to project file string, path to .obj files string and [Debug|Release] string
 def updateProjectFile(projectname, projectpath, objpath, runMode):
     objfiles = [file for file in listdir(objpath)
                 if file.endswith('.obj') and file != 'main.obj']
-
     projectfile = join(projectpath, projectname.lower() + '.vcxproj')
     ET.register_namespace('', "http://schemas.microsoft.com/developer/msbuild/2003")
     updated, newtree = updated_project(ET.parse(projectfile), objfiles, runMode)
@@ -80,23 +78,26 @@ def updated_project(tree, objfiles, runMode):
         if runMode not in itemDefinitionGroup.attrib.get('Condition'): continue
         #Find additional dependencies
         for additionalDependencies in itemDefinitionGroup.iter('{http://schemas.microsoft.com/developer/msbuild/2003}AdditionalDependencies'):
-            #Split dependencies into list
-            dependencies = additionalDependencies.text.split(';')
-            #Separate dependency types
-            libs = [ x for x in dependencies if '.lib' in x ]
-            additional = [ x for x in dependencies if '.lib' not in x and '.obj' not in x ]
-            #Append items back to the list
-            del dependencies[:]
-            dependencies.extend(libs)
-            dependencies.extend(objfiles)
-            dependencies.extend(additional)
-            #Turn list into string again
-            tempstr = ';'.join(dependencies)
-            original = additionalDependencies.text
-            if (original != tempstr):
-                additionalDependencies.text = tempstr
+            changed, newdeps = updated_deps(additionalDependencies.text, objfiles)
+            if changed:
+                additionalDependencies.text = newdeps
                 fileUpdated = True
     return (fileUpdated, tree)
+
+def updated_deps(olddeps, objfiles):
+    #Split dependencies into list
+    dependencies = olddeps.split(';')
+    #Separate dependency types
+    libs = [ x for x in dependencies if '.lib' in x ]
+    additional = [ x for x in dependencies if '.lib' not in x and '.obj' not in x ]
+    #Append items back to the list
+    del dependencies[:]
+    dependencies.extend(libs)
+    dependencies.extend(objfiles)
+    dependencies.extend(additional)
+    #Turn list into string again
+    tempstr = ';'.join(dependencies)
+    return (tempstr != olddeps, tempstr)
 
 ###########################################
 #

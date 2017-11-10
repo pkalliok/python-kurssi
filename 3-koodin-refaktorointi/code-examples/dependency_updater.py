@@ -61,7 +61,14 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
 
     projectfile = join(projectpath, projectname.lower() + '.vcxproj')
     ET.register_namespace('', "http://schemas.microsoft.com/developer/msbuild/2003")
-    tree = ET.parse(projectfile)
+    updated, newtree = updated_project(ET.parse(projectfile), objfiles, runMode)
+    if updated:
+        newtree.write(projectfile, encoding="utf-8", xml_declaration=True)
+        print('Updated ' + runMode + ' dependencies in ' + projectname)
+    else:
+        print(runMode + ' dependencies in ' + projectname + ' were already up-to-date')
+
+def updated_project(tree, objfiles, runMode):
     root = tree.getroot()
     fileUpdated = False
     for itemDefinitionGroup in root.iter('{http://schemas.microsoft.com/developer/msbuild/2003}ItemDefinitionGroup'):
@@ -84,13 +91,7 @@ def updateProjectFile(projectname, projectpath, objpath, runMode):
             if (original != tempstr):
                 additionalDependencies.text = tempstr
                 fileUpdated = True
-
-    #Update file
-    if (fileUpdated):
-        tree.write(projectfile, encoding="utf-8", xml_declaration=True)
-        print('Updated ' + runMode + ' dependencies in ' + projectname)
-    else:
-        print(runMode + ' dependencies in ' + projectname + ' were already up-to-date')
+    return (fileUpdated, tree)
 
 ###########################################
 #

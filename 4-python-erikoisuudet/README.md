@@ -47,7 +47,7 @@ kontekstinkäsittelijöitä (toteuttavat kontekstiprotokollan).
  * SQLitelle:
    https://docs.python.org/3/library/sqlite3.html#using-the-connection-as-a-context-manager
 
-Usein, jos kokonainen funktio on wrapattu with:-blokkiin, kannattaa
+Usein, jos kokonainen funktio on wrapattu `with`-blokkiin, kannattaa
 wrappausta varten tehdä koristerija.  Eli aasinsillan kautta:
 
 ## Koristelijat (dekoraattorit)
@@ -56,7 +56,7 @@ Koristelijat "muuntavat" määriteltävää funktiota haluamallaan tavalla.
 Nämä kaksi tarkoittavat suunnilleen samaa:
 
 ```python
-@koristele
+@koristele(argumentti)
 def mun_funktio(x): return jotain(x)
 ```
 
@@ -64,11 +64,34 @@ ja
 
 ```python
 def mun_funktio(x): return jotain(x)
-mun_funktio = koristele(mun_funktio)
+mun_funktio = koristele(argumentti)(mun_funktio)
 ```
+
+Mitä koristelija voi tehdä?  Ainakin:
+
+ * Estää `mun_funktio`:n kutsumisen jossain tilanteessa
+ * Kutsua `mun_funktio`:ta monta kertaa
+ * Muutella `mun_funktio`:n argumentteja
+ * Tehdä jotain (esim. lokitusta, resurssinvarauksia, ...) ennen ja
+   jälkeen `mun_funktio`:n kutsujen
+ * Merkitä jotain muistiin heti määrittelyvaiheessa
+
+Lisää tietoa:
+
+ * määrittely: https://www.python.org/dev/peps/pep-0318/
+ * http://python-3-patterns-idioms-test.readthedocs.io/en/latest/PythonDecorators.html
+ * Aivan sikana esimerkkikäyttötapauksia:
+   https://stackoverflow.com/questions/489720/what-are-some-common-uses-for-python-decorators
+ * Flask-kirjasto käyttää runsaasti dekoraattoreita antamaan
+   lisämäärityksiä (ja osoitteita) erilaisten HTTP-kutsujen
+   käsittelijöille:
+   http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
 
 ## `yield` ja generaattorifunktiot
 
 Generaattorifunktiot ovat keskeytettäviä suorituskonteksteja.  Tämä on
 tosi monipuolinen ohjelmointitekniikka, jolla voi toteuttaa korutiineja,
-asynkronisia ohjelmia ja vaikkapa kontekstinkäsittelijöitä.
+asynkronisia ohjelmia ja vaikkapa kontekstinkäsittelijöitä.  Jos
+"korutiini" ei ole tuttu sana, niin se on ... yleistys siitä mitä
+vaikkapa Clojuren transduktorit tai Unixin putket pyrkivät tekemään :)
+

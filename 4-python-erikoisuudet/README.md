@@ -28,6 +28,21 @@ Iteraattoreita voi luoda kolmella tavalla:
    (tähän palataan myöhemmin)
  * Generaattorilauseena.
 
+Iteraattoreilla voi tehdä potentiaalisesti äärettömiä kokoelmia:
+
+```python
+from itertools import *
+list(islice(cycle([1,2,3]), 10))
+[1, 2, 3, 1, 2, 3, 1, 2, 3, 1]
+```
+
+Äärettömästä kokoelmasta voi tuottaa toisen äärettömän kokoelman:
+
+```python
+list(islice((el+7 for el in cycle([1,2,3]) if el%2), 10))
+[8, 10, 8, 10, 8, 10, 8, 10, 8, 10]
+```
+
 ## `with` ja kontekstinkäsittelijät
 
 Tämä tuli jo vastaan testifixtureissa.  Kontekstinkäsittelijät on
@@ -95,3 +110,57 @@ asynkronisia ohjelmia ja vaikkapa kontekstinkäsittelijöitä.  Jos
 "korutiini" ei ole tuttu sana, niin se on ... yleistys siitä mitä
 vaikkapa Clojuren transduktorit tai Unixin putket pyrkivät tekemään :)
 
+Generaattorifunktioilla voi tehdä asioita, jotka ovat epäluontevia
+generaattorilauseilla:
+
+```python
+def fibonacci_seq():
+    x, y = 1, 1
+    while True:
+        yield x
+        x, y = y, x+y
+
+list(islice(fibonacci_seq(), 10))
+[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+```
+
+Joskus saman saa tosin aikaan pahalla kikkailulla:
+
+```python
+list(islice((a for a, b in
+  accumulate(cycle([(1,1)]), lambda x, _: (x[1], x[0]+x[1]))),
+  10))
+[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+```
+
+Generaattorifunktiot voivat olla rekursiivisia:
+
+```python
+def numbers_from(x):
+    yield x
+    yield from numbers_from(x+1)
+
+list(islice(numbers_from(1), 5))
+[1, 2, 3, 4, 5]
+```
+
+Sillä voi tehdä asioita, jotka ovat vaan tosi vaikeita
+generaattorilauseilla:
+
+```python
+def bifurcate(num):
+    if num < 0: return
+    yield from bifurcate(num-1)
+    yield num
+    yield from bifurcate(num-1)
+
+list(bifurcate(3))
+[0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0]
+```
+
+```python
+```
+
+```python
+```

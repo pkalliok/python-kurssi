@@ -159,8 +159,28 @@ list(bifurcate(3))
 [0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0]
 ```
 
-```python
-```
+Taikka vaikka rekursiivisen Erastotheneen seulan:
 
 ```python
+def sieve(nums):
+    p = next(nums)
+    yield p
+    yield from sieve(n for n in nums if n%p)
+    
+list(islice(sieve(count(2)), 10))
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 ```
+
+Olennaista on, että generaattoreiden on helppoa kutsua toisiaan.
+
+```python
+def insane_processing_step(coll):
+    acc = 15
+    for num in coll:
+        acc = int((num - acc) * .75)
+        yield acc
+
+list(islice(insane_processing_step(count(0)), 15))
+[-11, 9, -5, 6, -1, 4, 1, 4, 3, 4, 4, 5, 5, 6, 6]
+```
+

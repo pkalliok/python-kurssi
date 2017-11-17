@@ -184,3 +184,16 @@ list(islice(insane_processing_step(count(0)), 15))
 [-11, 9, -5, 6, -1, 4, 1, 4, 3, 4, 4, 5, 5, 6, 6]
 ```
 
+## Asynkroninen ohjelmointi
+
+Koska generaattorit pystyvät keskeyttämään koodin suorituksen tiettyyn
+pisteeseen (`yield`) ja jatkamaan siitä pyydettäessä, niitä käytetään
+myös asynkronisessa ohjelmoinnissa kertomaan, että ohjelma haluaa
+odotella jotain ja on aika tehdä välillä jotain muuta.  Mutta viime
+aikoina Pythonissa on asteittain rakennettu erillinen tuki
+asynkroniselle ohjelmoinnille ja generaattoreita yritetään kovasti
+eriyttää asynkronisista korutiineista.
+
+Esimerkkejä nykyaikaisesta asynkronisesta Python-ohjelmoinnista löytyy
+vaikkapa täältä: https://aiohttp.readthedocs.io/en/stable/
+

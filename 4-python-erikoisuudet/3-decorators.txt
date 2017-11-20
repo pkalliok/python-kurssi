@@ -1,0 +1,79 @@
+In [36]: def turha(f): return f
+
+In [37]: @turha
+    ...: def tuplaa(x): return x+x
+    ...: 
+
+In [38]: tuplaa(3)
+Out[38]: 6
+
+In [41]: def turha(f):
+    ...:     print("Nyt määritettiin funktio %s" % f)
+    ...:     return f
+    ...: 
+
+In [42]: @turha
+    ...: def tuplaa(x): return x+x
+    ...: 
+Nyt määritettiin funktio <function tuplaa at 0x7faea94f2378>
+
+In [43]: tuplaa(3)
+Out[43]: 6
+
+In [44]: def turha(f):
+    ...:     print("Nyt määritettiin funktio %s" % f)
+    ...:     def uusi_f(x):
+    ...:         return f(52)
+    ...:     return uusi_f
+    ...: 
+
+In [45]: @turha
+    ...: def tuplaa(x): return x+x
+    ...: 
+Nyt määritettiin funktio <function tuplaa at 0x7faeaa9041e0>
+
+In [46]: tuplaa(3)
+Out[46]: 104
+
+In [47]: def kutsu_syotteella(syote):
+    ...:     def se_todellinen_dekoraattori(f):
+    ...:         def uusi_f(x):
+    ...:             return f(syote)
+    ...:         return uusi_f
+    ...:     return se_todellinen_dekoraattori
+    ...: 
+
+In [48]: @kutsu_syotteella(10)
+    ...: def moikkaa(nimi): print("Moikka, %s!" % nimi)
+    ...: 
+
+In [49]: moikkaa('Panu')
+Moikka, 10!
+
+In [50]: def lokita(f):
+    ...:     def uusi_f(*args):
+    ...:         print("%s kutsuttu argumentein: %s" % (f, args))
+    ...:         tulos = f(*args)
+    ...:         print("%s palautti tuloksen: %s" % (f, tulos))
+    ...:         return tulos
+    ...:     return uusi_f
+    ...: 
+
+In [51]: @lokita
+    ...: def moikkaa(nimi): print("Moikka, %s!" % nimi)
+    ...: 
+
+In [52]: moikkaa('Panu')
+<function moikkaa at 0x7faea9494730> kutsuttu argumentein: ('Panu',)
+Moikka, Panu!
+<function moikkaa at 0x7faea9494730> palautti tuloksen: None
+
+In [53]: @lokita
+    ...: def tuplaa(x): return x+x
+    ...: 
+
+In [54]: print(tuplaa(3)+4)
+<function tuplaa at 0x7faea95ca9d8> kutsuttu argumentein: (3,)
+<function tuplaa at 0x7faea95ca9d8> palautti tuloksen: 6
+10
+

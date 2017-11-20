@@ -1,0 +1,47 @@
+In [18]: from contextlib import contextmanager
+
+In [21]: import time
+
+In [22]: help(time.time)
+
+In [23]: @contextmanager
+    ...: def ajastettu():
+    ...:     nyt = time.time()
+    ...:     yield
+    ...:     print("kesti %d" % (time.time() - nyt))
+    ...:     
+
+In [24]: with ajastettu(): print("tää on koodia")
+tää on koodia
+kesti 0
+
+In [26]: dir(time)
+[...]
+ 'sleep',
+[...]
+
+In [27]: help(time.sleep)
+
+In [29]: with ajastettu(): print("tää on koodia"); time.sleep(2)
+tää on koodia
+kesti 2
+
+In [30]: @contextmanager
+    ...: def ajastettu():
+    ...:     nyt = time.time()
+    ...:     try: yield
+    ...:     finally: print("kesti %d" % (time.time() - nyt))
+    ...:     
+
+In [33]: class Foo(BaseException): pass
+
+In [35]: with ajastettu(): print("tää on koodia"); time.sleep(2); raise Foo
+tää on koodia
+kesti 2
+---------------------------------------------------------------------------
+Foo                                       Traceback (most recent call last)
+<ipython-input-35-8ad55e6a4728> in <module>()
+----> 1 with ajastettu(): print("tää on koodia"); time.sleep(2); raise Foo
+
+Foo: 
+

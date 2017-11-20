@@ -1,0 +1,45 @@
+In [1]: [x+x for x in [1,2,3]]
+Out[1]: [2, 4, 6]
+
+In [2]: (x+x for x in [1,2,3])
+Out[2]: <generator object <genexpr> at 0x7faeaa985938>
+
+In [3]: next(x+x for x in [1,2,3])
+Out[3]: 2
+
+In [4]: from itertools import *
+
+In [5]: count(2)
+Out[5]: count(2)
+
+In [6]: a = count(2)
+
+In [7]: next(a)
+Out[7]: 2
+
+In [8]: next(a)
+Out[8]: 3
+
+In [9]: next(a)
+Out[9]: 4
+
+In [10]: [x+x for x in count(2)]
+[... takes infinite time (and memory), so interrupt with Ctrl-C ...]
+
+In [11]: (x+x for x in count(2))
+Out[11]: <generator object <genexpr> at 0x7faea9ead5c8>
+
+In [12]: parillisia = (x+x for x in count(2))
+
+In [13]: next(parillisia)
+Out[13]: 4
+
+In [14]: next(parillisia)
+Out[14]: 6
+
+In [15]: next(parillisia)
+Out[15]: 8
+
+In [17]: list(islice(parillisia, 10))
+Out[17]: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28]
+

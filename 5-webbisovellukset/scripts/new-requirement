@@ -1,0 +1,9 @@
+#!/bin/bash
+
+git stash
+pip install "$@"
+pip freeze > requirements.txt
+git add requirements.txt
+git commit -m "New requirement: $*"
+git stash pop
+

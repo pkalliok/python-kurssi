@@ -43,3 +43,47 @@ Out[15]: 8
 In [17]: list(islice(parillisia, 10))
 Out[17]: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28]
 
+In [24]: accumulate(count(1))
+Out[24]: <itertools.accumulate at 0x7fedd8107348>
+
+In [25]: a = accumulate(count(1))
+
+In [26]: next(a)
+Out[26]: 1
+
+In [27]: next(a)
+Out[27]: 3
+
+In [28]: next(a)
+Out[28]: 6
+
+In [29]: next(a)
+Out[29]: 10
+
+In [30]: next(a)
+Out[30]: 15
+
+In [31]: a = accumulate(accumulate(count(1)))
+
+In [32]: next(a)
+Out[32]: 1
+
+In [33]: next(a)
+Out[33]: 4
+
+In [34]: next(a)
+Out[34]: 10
+
+In [35]: next(a)
+Out[35]: 20
+
+In [36]: next(a)
+Out[36]: 35
+
+In [39]: list("vaihtoehto numero %d on %s" % (n, ve) for n, ve in enumerate("moi
+    ...:  ei voi".split()))
+Out[39]: 
+['vaihtoehto numero 0 on moi',
+ 'vaihtoehto numero 1 on ei',
+ 'vaihtoehto numero 2 on voi']
+

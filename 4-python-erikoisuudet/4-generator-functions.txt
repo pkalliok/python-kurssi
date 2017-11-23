@@ -27,3 +27,47 @@ Out[62]: [1, 6, 8]
 In [63]: list(accumulate([1,5,2], lambda acc, el: acc*el))
 Out[63]: [1, 5, 10]
 
+In [63]: def numbers_from(n):
+    ...:     yield n
+    ...:     for x in numbers_from(n+1): yield x
+    ...:     
+
+In [64]: list(islice(numbers_from(3), 10))
+Out[64]: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+In [65]: def numbers_from(n):
+    ...:     yield n
+    ...:     yield from numbers_from(n+1)
+    ...:     
+
+In [66]: list(islice(numbers_from(3), 10))
+Out[66]: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+In [71]: def tag_increasing(coll):
+    ...:     last_value = next(coll)
+    ...:     yield ('maybe', last_value)
+    ...:     for item in coll:
+    ...:         yield (last_value < item, item)
+    ...:         last_value = item
+    ...:         
+
+In [72]: list(tag_increasing(iter([1,2,3,7,5,4])))
+Out[72]: [('maybe', 1), (True, 2), (True, 3), (True, 7), (False, 5), (False, 4)]
+
+In [73]: def pairwise(coll):
+    ...:     a, b = tee(coll)
+    ...:     return zip(a, islice(b, 1, None))
+    ...: 
+
+In [74]: pairwise([1,2,3,7,5,4])
+Out[74]: <zip at 0x7fedd815bfc8>
+
+In [75]: list(pairwise([1,2,3,7,5,4]))
+Out[75]: [(1, 2), (2, 3), (3, 7), (7, 5), (5, 4)]
+
+In [76]: [(a<b, a) for a, b in pairwise([1,2,3,7,5,4])]
+Out[76]: [(True, 1), (True, 2), (True, 3), (False, 7), (False, 5)]
+
+In [77]: ((a<b, a) for a, b in pairwise([1,2,3,7,5,4]))
+Out[77]: <generator object <genexpr> at 0x7fedd3535570>
+

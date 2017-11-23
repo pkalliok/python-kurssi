@@ -77,3 +77,42 @@ In [54]: print(tuplaa(3)+4)
 <function tuplaa at 0x7faea95ca9d8> palautti tuloksen: 6
 10
 
+[....]
+
+In [43]: def koristelija(f): return lambda x: print("jee")
+
+In [44]: @koristelija
+    ...: def tuplaa(x): return x+x
+    ...: 
+
+In [45]: tuplaa(3)
+jee
+
+In [49]: maaritellyt = []
+
+In [50]: def turha(f):
+    ...:     maaritellyt.append(f)
+    ...:     return f
+    ...: 
+
+In [51]: @turha
+    ...: def tuplaa(x): return x+x
+    ...: 
+
+In [52]: tuplaa(3)
+Out[52]: 6
+
+In [53]: maaritellyt
+Out[53]: [<function __main__.tuplaa>]
+
+In [54]: @koristelija
+    ...: @turha
+    ...: def foo(x): "hei" + x
+    ...: 
+
+In [55]: foo(3)
+jee
+
+In [56]: foo
+Out[56]: <function __main__.koristelija.<locals>.<lambda>>
+

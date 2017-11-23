@@ -13,7 +13,8 @@ stamps/create-virtualenv:
 PIDFILE=stamps/local-flask.pid
 $(PIDFILE): stamps/create-virtualenv
 	(. myenv/bin/activate \
-	&& FLASK_APP=webapp.py flask run -p 3000 > "$@.log" 2>&1 \
+	&& FLASK_APP=src/webapp.py FLASK_DEBUG=1 \
+		flask run -p 3000 > "$@.log" 2>&1 \
 	& echo "$$!" > "$@")
 	until curl http://localhost:3000/ping; do \
 		sleep 1; echo -n "retrying..."; done

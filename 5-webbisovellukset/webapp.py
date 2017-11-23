@@ -6,6 +6,9 @@ app = Flask(__name__)
 @app.route("/")
 def root(): return redirect("/hello", code=302)
 
+@app.route("/ping")
+def ping(): return "pong"
+
 @app.route("/hello")
 def hello(): return "Dead kittens and suffering"
 

@@ -59,3 +59,12 @@ stamps/test-image: stamps/run-image
 	(. myenv/bin/activate && SERVICE_ROOT=http://localhost:4000 nose2)
 	touch $@
 
+stamps/make-docker-login:
+	docker login -u pkalliok
+	touch $@
+
+stamps/push-image: stamps/test-image stamps/make-docker-login
+	docker tag webapp-application pkalliok/example-flask-webapp:latest
+	docker push pkalliok/example-flask-webapp:latest
+	touch $@
+

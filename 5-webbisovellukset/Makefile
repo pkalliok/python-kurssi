@@ -55,3 +55,7 @@ stop-image:
 	docker rm -f webapp-1
 	rm stamps/run-image
 
+stamps/test-image: stamps/run-image
+	(. myenv/bin/activate && SERVICE_ROOT=http://localhost:4000 nose2)
+	touch $@
+

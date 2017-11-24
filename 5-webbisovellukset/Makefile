@@ -1,9 +1,12 @@
+SOURCE=$(wildcard src/*.py)
+TESTS=$(wildcard nosetests/*.py)
 
-.PHONY: all test
-all: test
+.PHONY: all
+all: stamps/run-tests
 
-test: stamps/local-flask.pid
+stamps/run-tests: $(PIDFILE) $(NOSETESTS)
 	(. myenv/bin/activate && nose2)
+	touch $@
 
 stamps/create-virtualenv:
 	virtualenv -p python3 myenv
@@ -23,4 +26,20 @@ $(PIDFILE): stamps/create-virtualenv
 .PHONY: stop-local-flask
 stop-local-flask:
 	kill "`cat $(PIDFILE)`" && rm "$(PIDFILE)"
+
+.PHONY: run-local-gunicorn
+run-local-gunicorn:
+	gunicorn -b localhost:4000 src.webapp:app 
+
+stamps/build-dependencies-image: requirements.txt docker/webapp-dependencies.docker
+	cp requirements.txt docker/
+	docker build -t webapp-dependencies \
+		-f docker/webapp-dependencies.docker docker/
+	touch $@
+
+stamps/build-webapp-image: $(SOURCE) docker/webapp-application.docker
+	cp -r src/ docker/
+	docker build -t webapp-application \
+		-f docker/webapp-application.docker docker/
+	touch $@
 

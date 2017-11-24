@@ -1,3 +1,5 @@
 *.pyc
 /stamps
 /myenv
+/docker/requirements.txt
+/docker/src

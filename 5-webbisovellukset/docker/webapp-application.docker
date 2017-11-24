@@ -1,0 +1,4 @@
+FROM webapp-dependencies
+COPY src/ ./
+EXPOSE 4000
+CMD gunicorn -b 0.0.0.0:4000 webapp:app

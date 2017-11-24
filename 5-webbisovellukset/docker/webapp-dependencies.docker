@@ -1,0 +1,7 @@
+FROM python:latest
+MAINTAINER Panu Kalliokoski <panu.kalliokoski@solita.fi>
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+RUN useradd -m -s /bin/bash webapp
+WORKDIR /home/webapp
+USER webapp

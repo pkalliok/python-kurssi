@@ -28,8 +28,8 @@ stop-local-flask:
 	test -f "$(PIDFILE)" && kill "`cat $(PIDFILE)`" && rm "$(PIDFILE)"
 
 .PHONY: run-local-gunicorn
-run-local-gunicorn:
-	gunicorn -b localhost:4000 src.webapp:app 
+run-local-gunicorn: stamps/create-virtualenv
+	(. myenv/bin/activate && gunicorn -b localhost:4000 src.webapp:app)
 
 stamps/build-dependencies-image: requirements.txt docker/webapp-dependencies.docker
 	cp requirements.txt docker/

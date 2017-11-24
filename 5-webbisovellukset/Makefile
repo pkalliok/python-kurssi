@@ -68,3 +68,11 @@ stamps/push-image: stamps/test-image stamps/make-docker-login
 	docker push pkalliok/example-flask-webapp:latest
 	touch $@
 
+stamps/heroku-initialisation:
+	heroku create
+	touch $@
+
+stamps/heroku-publish: $(SOURCE) requirements.txt Procfile stamps/heroku-initialisation
+	git push heroku master
+	touch $@
+

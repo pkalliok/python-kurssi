@@ -1,5 +1,6 @@
 SOURCE=$(wildcard src/*.py)
 TESTS=$(wildcard nosetests/*.py)
+PIDFILE=stamps/local-flask.pid
 
 .PHONY: all
 all: stamps/run-tests
@@ -13,7 +14,6 @@ stamps/create-virtualenv:
 	(. myenv/bin/activate && pip install -r requirements.txt)
 	touch $@
 
-PIDFILE=stamps/local-flask.pid
 $(PIDFILE): stamps/create-virtualenv
 	(. myenv/bin/activate \
 	&& FLASK_APP=src/webapp.py FLASK_DEBUG=1 \

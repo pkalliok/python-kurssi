@@ -5,7 +5,7 @@ PIDFILE=stamps/local-flask.pid
 .PHONY: all
 all: stamps/run-tests
 
-stamps/run-tests: $(PIDFILE) $(NOSETESTS)
+stamps/run-tests: $(PIDFILE) $(TESTS) $(SOURCE)
 	(. myenv/bin/activate && nose2)
 	touch $@
 
@@ -55,7 +55,7 @@ stop-image:
 	docker rm -f webapp-1
 	rm stamps/run-image
 
-stamps/test-image: stamps/run-image
+stamps/test-image: stamps/run-image $(TESTS)
 	(. myenv/bin/activate && SERVICE_ROOT=http://localhost:4000 nose2)
 	touch $@
 

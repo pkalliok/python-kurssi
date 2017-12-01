@@ -23,3 +23,12 @@ def test_todo_add():
     assert isinstance(id, int)
     assert (todo,) in queries.all_todos()
 
+@transactional
+def test_newest_todo():
+    migrate()
+    mytodo = "Another todo item (%d)" % randint(0,99999)
+    [(id,)] = queries.new_todo(todo=mytodo)
+    assert isinstance(id, int)
+    [(todo, ts)] = queries.newest_todo()
+    assert todo == mytodo
+

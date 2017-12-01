@@ -11,3 +11,8 @@ SELECT todo FROM todo;
 INSERT INTO todo(todo) VALUES(%(todo)s);
 SELECT currval('todo_id_seq');
 
+-- name: newest_todo
+
+SELECT todo, ts FROM todo
+ORDER BY ts DESC LIMIT 1;
+

@@ -5,6 +5,7 @@ nosy==1.2
 numexpr==2.6.4
 numpy==1.13.3
 pandas==0.21.0
+pyesql==0.0.1
 python-dateutil==2.6.1
 pytz==2017.3
 six==1.11.0

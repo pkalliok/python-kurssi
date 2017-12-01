@@ -2,3 +2,7 @@
 
 SELECT 3 + 2;
 
+-- name: all_todos
+
+SELECT todo FROM todo;
+

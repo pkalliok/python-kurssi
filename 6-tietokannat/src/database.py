@@ -1,13 +1,27 @@
 
 from os import environ
-import psycopg2
+from os.path import dirname, join
+import psycopg2, pyesql
 
-conn_params = dict(
-        host=environ.get('PGHOST', 'localhost'),
-        port=environ.get('PGPORT', '15432'),
-        user=environ.get('PGUSER', 'pydb'),
-        database=environ.get('PGDATABASE', 'pydb'),
-        password=environ.get('PGPASSWORD', 'hubbabubba'))
+basedir = dirname(__file__)
 
-connection = psycopg2.connect(**conn_params)
+def sql_file(name):
+    return join(basedir, "sql", "%s.sql" % name)
 
+def new_conn():
+    env = environ.get
+    conn_params = dict(
+            host=env('PGHOST', 'localhost'),
+            port=env('PGPORT', '15432'),
+            user=env('PGUSER', 'pydb'),
+            database=env('PGDATABASE', 'pydb'),
+            password=env('PGPASSWORD', 'hubbabubba'))
+    return psycopg2.connect(**conn_params)
+
+connection = new_conn()
+
+def define_queries(name):
+    return pyesql.parse_file(sql_file(name), name=name.title())(connection)
+
+migrations = define_queries("migrations")
+#queries = pyesql.parse_file(sql_file("queries"))

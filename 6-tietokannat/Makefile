@@ -36,3 +36,6 @@ sql-console:
 		-e PGPASSWORD=hubbabubba postgres \
 		psql -h postgres -U pydb --no-password
 
+toilets.csv:
+	wget http://koneidenkapinaadele.github.io/vvk/toilets.csv
+

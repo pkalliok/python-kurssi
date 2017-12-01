@@ -6,3 +6,8 @@ SELECT 3 + 2;
 
 SELECT todo FROM todo;
 
+-- name: new_todo
+
+INSERT INTO todo(todo) VALUES(%(todo)s);
+SELECT currval('todo_id_seq');
+

@@ -3,6 +3,7 @@ from os import environ
 from os.path import dirname, join
 from yoyo import read_migrations, get_backend
 import psycopg2, pyesql
+from funcy import decorator
 
 basedir = dirname(__file__)
 
@@ -28,6 +29,10 @@ def migrate():
     backend = get_backend(conn_url())
     migrations = read_migrations(join(basedir, "migrations"))
     backend.apply_migrations(backend.to_apply(migrations))
+
+@decorator
+def transactional(func):
+    with connection: func()
 
 def define_queries(name):
     return pyesql.parse_file(sql_file(name), name=name.title())(connection)

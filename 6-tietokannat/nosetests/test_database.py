@@ -1,5 +1,6 @@
 
-from src.database import connection, queries, migrate
+from src.database import connection, queries, migrate, transactional
+from random import randint
 
 def test_connection():
     assert hasattr(connection, 'cursor')
@@ -13,4 +14,12 @@ def test_test_query():
 def test_migration_creates_todos():
     migrate()
     assert isinstance(queries.all_todos(), list)
+
+@transactional
+def test_todo_add():
+    migrate()
+    todo = "New todo item (%d)" % randint(0,99999)
+    [(id,)] = queries.new_todo(todo=todo)
+    assert isinstance(id, int)
+    assert (todo,) in queries.all_todos()
 

@@ -1,4 +1,4 @@
-SOURCE=$(wildcard src/*.py)
+SOURCE=$(wildcard src/*.py) $(wildcard src/sql/*.sql)
 TESTS=$(wildcard nosetests/*.py)
 
 stamps/create-virtualenv:
@@ -25,4 +25,8 @@ stamps/create-database: stamps/start-database
 stop-database:
 	docker rm -f python-postgres-1
 	rm stamps/start-database
+
+stamps/run-tests: stamps/create-database $(SOURCE) $(TESTS)
+	(. myenv/bin/activate && nose2)
+	touch $@
 

@@ -30,3 +30,9 @@ stamps/run-tests: stamps/create-database $(SOURCE) $(TESTS)
 	(. myenv/bin/activate && nose2)
 	touch $@
 
+.PHONY: sql-console
+sql-console:
+	docker run -it --rm --link python-postgres-1:postgres \
+		-e PGPASSWORD=hubbabubba postgres \
+		psql -h postgres -U pydb --no-password
+

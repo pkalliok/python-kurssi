@@ -15,7 +15,9 @@ For migrating database schemas, there are also a few options:
  1. Use your web framework's migration tools, such as `flask_migrate` or
     Django's built-in migrations
  2. Use some specific migration library such as `alembic` (for
-    SQLAlchemy) or `yoyo-migrations` (we use yoyo-migrations)
+    SQLAlchemy), `sqlturk` or `yoyo-migrations` (we use yoyo-migrations)
+ 3. Automatically generate schema changes from changes in code
+    (`alembic` and `sql-schema-builder` can do this)
 
 ## Normal pyesql usage
 

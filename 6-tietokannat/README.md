@@ -68,6 +68,8 @@ In [9]: database.queries.newest_todo()
 Out[9]: [('New todo item (36226)', datetime.datetime(2017, 12, 1, 11, 46, 22, 330737))]
 ```
 
+## Handling data with Pandas
+
 Pandas has its own support for reading various sources of data:
 
 ```

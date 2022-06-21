@@ -9,7 +9,7 @@ jedi==0.11.0
 nose2==0.7.2
 nosy==1.2
 numexpr==2.6.4
-numpy==1.13.3
+numpy==1.22.0
 pandas==0.21.0
 parso==0.1.0
 pexpect==4.3.0
